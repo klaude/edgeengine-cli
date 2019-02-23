@@ -6,6 +6,7 @@ import * as Validation from "./validation";
 import * as Http from "./http";
 import * as Log from "./log";
 import { continueOnErrorPrompt } from "./prompt";
+import { getCredentials } from "./auth";
 
 /*
  * Class performing all Deploy tasks.
@@ -110,6 +111,7 @@ export class Deploy {
       const response = await Http.request(
         "PATCH",
         `/cdn/v1/stacks/${stackId}/sites/${siteId}/scripts/${script.id}`,
+        getCredentials(),
         body
       );
 
@@ -154,6 +156,7 @@ export class Deploy {
     const response = await Http.request(
       "POST",
       `/cdn/v1/stacks/${this.configuration.stack_id}/sites/${siteId}/scripts`,
+      getCredentials(),
       body
     );
     Log.logVerbose(

@@ -69,11 +69,16 @@ export function createCredentialsPathIfNeeded(): void {
 export async function getAccessToken(): Promise<string> {
   const credentials = getCredentials();
 
-  const response = await Http.request("POST", "/identity/v1/oauth2/token", {
-    client_id: credentials.client_id,
-    client_secret: credentials.client_secret,
-    grant_type: "client_credentials"
-  });
+  const response = await Http.request(
+    "POST",
+    "/identity/v1/oauth2/token",
+    credentials,
+    {
+      client_id: credentials.client_id,
+      client_secret: credentials.client_secret,
+      grant_type: "client_credentials"
+    }
+  );
 
   const body = await response.json();
 
